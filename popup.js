@@ -1,14 +1,29 @@
+ 
+
 chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.action == "getSource") {
       message.innerText = request.source;
+       
       console.log(request)
     }
   });
   
+  chrome.runtime.onMessage.addListener(function(request, sender) {
+    if (request.action == "getheaders") {
+      headers.innerText = request.source;
+       
+      console.log(request)
+    }
+  });
+  
+ 
+
   function onWindowLoad() {
   
     var message = document.querySelector('#message');
-  
+    var headers = document.querySelector('#headers');
+
+   
     chrome.tabs.executeScript(null, {
       file: "getPagesSource.js"
     }, function() {
@@ -20,4 +35,8 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
   
   }
    
+
+ 
+
+
   window.onload = onWindowLoad;
