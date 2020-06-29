@@ -167,67 +167,52 @@ function Page_Headers(){
   return page_headers;
 } 
 
-function Total_Page_Links(){
-  var total_page_links =''
-  total_page_links+= "Link:" + document.getElementsByTagName("a").length;
 
+//page total links
+function Total_Page_Links() {
+  var total_page_links = "";
+  total_page_links +=  document.getElementsByTagName("a").length;
+
+  return total_page_links;
 }
 
-function Page_Links(){
-  var page_links=''
-  html += "\n\n";
+//check the all available broken link in particular page
 
-  var total_links = document.getElementsByTagName("a");
-  var total_broken_links = 0;
-  for (var i = 0; i < total_links.length; i++) {
+function Find_Broken_Links() {
+  var total_broken_links = document.getElementsByTagName("a");
+  var broken_links=0;
+  var total_broken_link_found = "";
+  for (var i = 0; i < total_broken_links.length; i++) {
     if (
-      total_links[i].getAttribute("href") === "" ||
-      total_links[i].getAttribute("href") === undefined ||
-      total_links[i].getAttribute("href") === "#"
+      total_broken_links[i].getAttribute("href") === "" ||
+      total_broken_links[i].getAttribute("href") === undefined ||
+      total_broken_links[i].getAttribute("href") === "#"
     ) {
-      total_broken_links++;
+       broken_links++;
     }
   }
- 
 
   if (total_broken_links) {
-    html += "Borken Links:" + total_broken_links;
+    total_broken_link_found += "Borken Links:" + broken_links
   } else {
-    html += "Broken Links:" + "No Broken Links Found";
+    total_broken_link_found += "Broken Links:" + "No Broken Links Found";
   }
 
-  html += "\n\n";
-  var total_images = document.getElementsByTagName("img");
-  html += "Images:" + total_images.length;
-  html += "\n\n";
-
-  total_images_without_alt = 0;
-  for (var i = 0; i < total_images.length; i++) {
-    if (
-      total_images[i].getAttribute("alt") === null ||
-      total_images[i].getAttribute("alt") === undefined
-    ) {
-      total_images_without_alt++;
-    }
-  }
-
-  html += "Images Without Alt:" + total_images_without_alt;
-
-  html += "\n\n";
-
-  total_image_without_title = 0;
-  for (var i = 0; i < total_images.length; i++) {
-    if (
-      total_images[i].getAttribute("title") === null ||
-      total_images[i].getAttribute("title") === undefined
-    ) {
-      total_image_without_title++;
-    }
-  }
-
-  html += "Images Without Title:" + total_image_without_title;
-
+  return total_broken_link_found;
 }
+
+
+function Page_Links(){
+   
+   var broken_links = ''
+
+   broken_links+='Total Images:'+ Total_Page_Links() + '\n\n'
+
+   broken_links+= Find_Broken_Links()
+ 
+   return broken_links;
+
+ }
 
 chrome.runtime.sendMessage({
   action: "getSource",
@@ -239,3 +224,10 @@ chrome.runtime.sendMessage({
   action: "getheaders",
   source: Page_Headers(document),
 });
+
+ 
+chrome.runtime.sendMessage({
+  action: "getlinks",
+  source: Page_Links(document),
+});
+

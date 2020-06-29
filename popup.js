@@ -16,12 +16,21 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
     }
   });
   
- 
+   
+  chrome.runtime.onMessage.addListener(function(request, sender) {
+    if (request.action == "getlinks") {
+      links.innerText = request.source;
+       
+      console.log(request)
+    }
+  });
+  
 
   function onWindowLoad() {
   
     var message = document.querySelector('#message');
     var headers = document.querySelector('#headers');
+    var links = document.querySelector('#links');
 
    
     chrome.tabs.executeScript(null, {
