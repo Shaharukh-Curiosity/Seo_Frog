@@ -188,6 +188,8 @@ function Find_Broken_Links() {
       total_broken_links[i].getAttribute("href") === undefined ||
       total_broken_links[i].getAttribute("href") === "#"
     ) {
+      total_broken_links[i].style.backgroundColor="red"
+
        broken_links++;
     }
   }
@@ -201,14 +203,35 @@ function Find_Broken_Links() {
   return total_broken_link_found;
 }
 
+function Image_Without_Title(){
+  var total_image=document.getElementsByTagName('a');
+  
+  var image_without_title=0;
+  for(var i=0;i<total_image.length;i++){
+    if(total_image[i].getAttribute('title') === "" || total_image[i].getAttribute('title') === undefined ||
+     total_image[i]=== null){
+       image_without_title++;
+     }
+  
+    }
+  if(image_without_title){
+    return image_without_title;
+  }
+  else{
+     return 0; 
+  } 
+}
+
 
 function Page_Links(){
    
    var broken_links = ''
 
-   broken_links+='Total Images:'+ Total_Page_Links() + '\n\n'
+   broken_links+='Total Links:'+ Total_Page_Links() + '\n\n'
 
-   broken_links+= Find_Broken_Links()
+   broken_links+= Find_Broken_Links()+'\n\n'
+
+   broken_links+='Image Without Title:'+ Image_Without_Title()
  
    return broken_links;
 
