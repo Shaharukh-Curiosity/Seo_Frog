@@ -1,10 +1,10 @@
  
 
 chrome.runtime.onMessage.addListener(function(request, sender) {
-    if (request.action == "getSource") {
+    if (request.action == "getinfo") {
       message.innerText = request.source;
        
-      console.log(request)
+      
     }
   });
   
@@ -12,8 +12,7 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.action == "getheaders") {
       headers.innerText = request.source;
        
-      console.log(request)
-    }
+     }
   });
   
    
@@ -21,16 +20,33 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.action == "getlinks") {
       links.innerText = request.source;
        
-      console.log(request)
+      
+    }
+  });
+
+  chrome.runtime.onMessage.addListener(function(request, sender) {
+    if (request.action == "getimages") {
+      images.innerText = request.source;
+       
+      
     }
   });
   
+  chrome.runtime.onMessage.addListener(function(request, sender) {
+    if (request.action == "getscripts") {
+      scripts.innerText = request.source;
+       
+       
+    }
+  });
 
   function onWindowLoad() {
   
     var message = document.querySelector('#message');
     var headers = document.querySelector('#headers');
     var links = document.querySelector('#links');
+    var links = document.querySelector('#images');
+
 
    
     chrome.tabs.executeScript(null, {

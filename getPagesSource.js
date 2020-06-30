@@ -26,7 +26,7 @@ function Seo_Improve(document_root) {
   html += "\n\n";
  
   html += "\n\n";
-  html += "Scripts:" + document.getElementsByTagName("script").length;
+  
 
   html += "\n\n";
 
@@ -123,8 +123,7 @@ function Page_H4(){
 
 function Meta_Keywords() {
   var meta_info = document.getElementsByTagName("meta");
-  console.log(meta_info);
-  for (var i = 0; i < meta_info.length; i++) {
+   for (var i = 0; i < meta_info.length; i++) {
     if (meta_info[i].getAttribute("name") === "keywords") {
       return meta_info[i].content;
     } else {
@@ -135,8 +134,7 @@ function Meta_Keywords() {
 
 function Meta_Description() {
   var meta_info = document.getElementsByTagName("meta");
-  console.log(meta_info);
-  for (var i = 0; i < meta_info.length; i++) {
+   for (var i = 0; i < meta_info.length; i++) {
     if (meta_info[i].getAttribute("name") === "description") {
       return meta_info[i].content;
     } else {
@@ -203,6 +201,20 @@ function Find_Broken_Links() {
   return total_broken_link_found;
 }
 
+
+  // retrieve all link path
+function Get_Link_Path(){
+  var image_src=document.getElementsByTagName('a');
+  var src_path='';
+  for(var i=0;i<image_src.length;i++){
+     src_path += image_src[i].getAttribute('href') + '\n';  
+  }
+
+  return src_path;
+
+  }
+
+
 function Image_Without_Title(){
   var total_image=document.getElementsByTagName('a');
   
@@ -229,16 +241,114 @@ function Page_Links(){
 
    broken_links+='Total Links:'+ Total_Page_Links() + '\n\n'
 
-   broken_links+= Find_Broken_Links()+'\n\n'
+   broken_links+= Find_Broken_Links()+'\n\n';
 
-   broken_links+='Image Without Title:'+ Image_Without_Title()
+   broken_links+='Image Without Title:'+ Image_Without_Title()+'\n\n';
  
+   broken_links+= '//Links href\n\n';
+
+   broken_links+= Get_Link_Path()
+
    return broken_links;
 
  }
 
+ function Total_Page_Images(){
+   return document.getElementsByTagName('img').length;
+ }
+
+ function Total_Images_Without_Alt(){
+  
+  var total_image_alt=document.getElementsByTagName('img')
+  var total_images_without_alt=0;
+  for(var i=0;i<total_image_alt.length;i++){
+    if(total_image_alt[i].getAttribute('alt')===null || total_image_alt[i].getAttribute('alt')===undefined ||
+    total_image_alt[i].getAttribute('alt')===''){
+      total_images_without_alt++;
+    }
+
+  }
+  return total_images_without_alt;
+
+ }
+
+ function Total_Images_Without_Title(){
+
+  var total_image_title=document.getElementsByTagName('img')
+  var total_images_without_title=0;
+  for(var i=0;i<total_image_title.length;i++){
+    if(total_image_title[i].getAttribute('title')===null || total_image_title[i].getAttribute('title')===undefined ||
+    total_image_title[i].getAttribute('title')===''){
+      total_images_without_title++;
+    }
+  
+  }
+  return total_images_without_title;
+
+ }
+
+ function Page_Images_Path(){
+
+  var image_path=document.getElementsByTagName('img')
+  var all_image_path='';
+  for(var i=0;i<image_path.length;i++){
+    all_image_path+= '//:'+image_path[i].getAttribute('src') +'\n\n';
+  }
+  return all_image_path;
+
+ }
+
+ 
+ function Total_Page_Script(){
+   return  document.getElementsByTagName("script").length;
+ }
+
+
+ function Get_Images() {
+   var page_image_info = "";
+
+   page_image_info += "Total Images : " + Total_Page_Images() + "\n\n";
+
+   page_image_info += 'Images Without Alt : ' + Total_Images_Without_Alt() + "\n\n";
+
+   page_image_info += 'Images Without Title : '+ Total_Images_Without_Title() + "\n\n";
+
+   page_image_info +=  Page_Images_Path();
+
+   return page_image_info;
+ }
+
+ function Total_Page_Script(){
+   return document.getElementsByTagName('script').length;
+}
+
+ function Page_Script_Path(){
+  var script_path=document.getElementsByTagName('script');
+  var all_script_path='';
+  for(var i=0;i<script_path.length;i++){
+    all_script_path+= '//' + script_path[i].getAttribute('src') + '\n\n'
+  }
+
+  return  all_script_path;
+ }
+
+ function Page_Script(){
+   var page_script_info='';
+   page_script_info+='Total Script have used  : ' + Total_Page_Script()+'\n\n';
+
+   page_script_info+= '(null) is indicating you did not provide script path in src attribute\n\n'
+
+   
+   page_script_info+='//Scripts Path'+'\n'
+   page_script_info+='--------------------\n\n'
+   page_script_info+=Page_Script_Path();
+
+   return page_script_info;
+
+ }
+ 
 chrome.runtime.sendMessage({
-  action: "getSource",
+  action: "getinfo",
   source: Seo_Improve(document),
 });
 
@@ -253,4 +363,17 @@ chrome.runtime.sendMessage({
   action: "getlinks",
   source: Page_Links(document),
 });
+
+
+chrome.runtime.sendMessage({
+  action: "getimages",
+  source: Get_Images(document),
+});
+
+
+chrome.runtime.sendMessage({
+  action: "getscripts",
+  source: Page_Script(document),
+});
+
 
