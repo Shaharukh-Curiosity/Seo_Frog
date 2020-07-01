@@ -1,16 +1,16 @@
 {
-  "name": "seo frog",
-  "version": "1.0",
-  "description": "site sudit",
+  "name": "Seo Frog",
+  "version": "2.0",
+  "description": "Make Correction on Post with the help of Seo Frog and improve your rank in a Search Engine",
   "permissions": ["tabs","<all_urls>"],
   "browser_action":{
-    "default_popup":"popup.html"
+    "default_popup":"popup.html",
+    "default_title":"Seo Frog"
  
   } ,
-  
-
+   
   "icons":{
-    "128":"brand.png"
+    "128":"seo_frog.png"
   },
 
   "manifest_version": 2

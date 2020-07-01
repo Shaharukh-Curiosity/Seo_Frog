@@ -3,7 +3,6 @@
 chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.action == "getinfo") {
       message.innerText = request.source;
-    
     }
   });
   
