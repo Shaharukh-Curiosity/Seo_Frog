@@ -52,7 +52,7 @@ Optimize link structure and anchor text for improved search engine visibility an
 2. Open your Chrome browser and go to `chrome://extensions/`.
 3. Enable "Developer mode" in the top right corner.
 4. Click "Load unpacked" and select the cloned/downloaded folder.
-5. The H<sub>2</sub>O</span> SEO FROG icon should now appear in your browser's extension bar.
+5. The</span> SEO FROG icon should now appear in your browser's extension bar.
 
   
 
