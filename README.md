@@ -2,7 +2,7 @@
   <img src="icons/icon128.png" alt="Seo_Frog" width="100">
 </p>
 
-<h1 align="center">H<sub>2</sub>O</span> SEO_FROG - Chrome Browser Extension</h1>
+<h1 align="center">  SEO_FROG - Chrome Browser Extension</h1>
 
 <p align="center">
   <strong>Boost Website Presence online.</strong>
@@ -26,7 +26,6 @@ H<sub>2</sub>O</span> Boost your website's SEO ranking with our latest blog! Div
 
 ## Features
 
-- CSS Analyzer:
 
 Seamlessly inspect and analyze CSS styles on any webpage to ensure optimal design and layout.
 Identify potential issues, such as unused styles or conflicts, for improved performance and user experience.
@@ -63,5 +62,5 @@ Your feedback is invaluable! If you have suggestions, feature requests, or encou
 
  
 <p align="center">
-  Created with ❤️ by Karan Mahajan
-</p># PRO_AHEAD
+  Created with ❤️ by Shaharukh Parmar
+</p> 
